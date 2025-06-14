@@ -2,13 +2,11 @@
 {
     public class CatalogueItem
     {
-        public Guid Id { get; init; }
         public string Name { get; init; }
         public decimal Price { get; init; }
 
         public CatalogueItem(string name, decimal price)
         {
-            Id = Guid.NewGuid();
             ValidateName(name);
             Name = name.Trim();
             ValidatePrice(price);

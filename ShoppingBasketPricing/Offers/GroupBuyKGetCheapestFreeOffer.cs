@@ -4,12 +4,12 @@ namespace ShoppingBasketPricing.Offers
 {
     public class GroupBuyKGetCheapestFreeOffer : IOffer
     {
-        private readonly List<Guid> _groupIds;
+        private readonly List<string> _groupNames;
         private readonly int _buyQuantity;
 
-        public GroupBuyKGetCheapestFreeOffer(List<Guid> groupIds, int buyQuantity)
+        public GroupBuyKGetCheapestFreeOffer(List<string> groupNames, int buyQuantity)
         {
-            _groupIds = groupIds ?? throw new ArgumentNullException(nameof(groupIds));
+            _groupNames = groupNames ?? throw new ArgumentNullException(nameof(groupNames));
             if (buyQuantity < 1) throw new ArgumentException("Buy quantity must be at least 1.");
             _buyQuantity = buyQuantity;
         }
@@ -20,7 +20,7 @@ namespace ShoppingBasketPricing.Offers
             var prices = new List<decimal>();
             foreach (var item in basket)
             {
-                if (_groupIds.Contains(item.Product.Id) && item.Quantity > 0)
+                if (_groupNames.Contains(item.Product.Name) && item.Quantity > 0)
                 {
                     var price = item.Product.Price;
                     for (int i = 0; i < item.Quantity; i++)

@@ -52,7 +52,7 @@ namespace ShoppingBasketPricing.Test
         public void BuyTwoGetOneFree_ShouldApplyDiscount()
         {
             var bakedBeans = new CatalogueItem("Baked Beans", 0.99m);
-            var offer = new SingleProductBuyKGetYFreeOffer(bakedBeans.Id, 2, 1);
+            var offer = new SingleProductBuyKGetYFreeOffer(bakedBeans.Name, 2, 1);
             var basket = new List<BasketItem> { new BasketItem(bakedBeans, 3) };
             var offers = new List<IOffer> { offer };
             var pricer = new BasketPricer();
@@ -66,7 +66,7 @@ namespace ShoppingBasketPricing.Test
         public void PercentageDiscount_ShouldApplyCorrectly()
         {
             var sardines = new CatalogueItem("Sardines", 1.89m);
-            var offer = new PercentageDiscountOffer(new List<Guid> { sardines.Id }, 25m);
+            var offer = new PercentageDiscountOffer(new List<string> { sardines.Name }, 25m);
             var basket = new List<BasketItem> { new BasketItem(sardines, 2) };
             var offers = new List<IOffer> { offer };
             var pricer = new BasketPricer();
@@ -83,7 +83,7 @@ namespace ShoppingBasketPricing.Test
             var shampooMedium = new CatalogueItem("Shampoo (Medium)", 2.50m);
             var shampooLarge = new CatalogueItem("Shampoo (Large)", 3.50m);
 
-            var offer = new GroupBuyKGetCheapestFreeOffer(new List<Guid> { shampooSmall.Id, shampooMedium.Id, shampooLarge.Id }, 3);
+            var offer = new GroupBuyKGetCheapestFreeOffer(new List<string> { shampooSmall.Name, shampooMedium.Name, shampooLarge.Name }, 3);
             var basket = new List<BasketItem>
             {
                 new BasketItem(shampooLarge, 3),
@@ -103,7 +103,7 @@ namespace ShoppingBasketPricing.Test
         {
             var sardines = new CatalogueItem("Sardines", 1.89m);
             var biscuits = new CatalogueItem("Biscuits", 1.20m);
-            var offer = new PercentageDiscountOffer(new List<Guid> { sardines.Id }, 50m);
+            var offer = new PercentageDiscountOffer(new List<string> { sardines.Name }, 50m);
             var basket = new List<BasketItem> { new BasketItem(biscuits, 1) };
             var offers = new List<IOffer> { offer };
             var pricer = new BasketPricer();
@@ -117,8 +117,8 @@ namespace ShoppingBasketPricing.Test
         public void MultipleOffersOnSameProduct_ShouldApplyAdditiveDiscounts()
         {
             var sardines = new CatalogueItem("Sardines", 1.89m);
-            var offer1 = new PercentageDiscountOffer(new List<Guid> { sardines.Id }, 25m);
-            var offer2 = new PercentageDiscountOffer(new List<Guid> { sardines.Id }, 25m);
+            var offer1 = new PercentageDiscountOffer(new List<string> { sardines.Name }, 25m);
+            var offer2 = new PercentageDiscountOffer(new List<string> { sardines.Name }, 25m);
             var basket = new List<BasketItem> { new BasketItem(sardines, 1) };
             var offers = new List<IOffer> { offer1, offer2 };
             var pricer = new BasketPricer();
@@ -132,8 +132,8 @@ namespace ShoppingBasketPricing.Test
         public void DiscountExceedsSubTotal_ShouldReturnZeroTotal()
         {
             var sardines = new CatalogueItem("Sardines", 1.89m);
-            var offer1 = new PercentageDiscountOffer(new List<Guid> { sardines.Id }, 100m);
-            var offer2 = new PercentageDiscountOffer(new List<Guid> { sardines.Id }, 100m);
+            var offer1 = new PercentageDiscountOffer(new List<string> { sardines.Name }, 100m);
+            var offer2 = new PercentageDiscountOffer(new List<string> { sardines.Name }, 100m);
             var basket = new List<BasketItem> { new BasketItem(sardines, 1) };
             var offers = new List<IOffer> { offer1, offer2 };
             var pricer = new BasketPricer();
@@ -147,7 +147,7 @@ namespace ShoppingBasketPricing.Test
         public void BuyTwoGetOneFree_Scaling_ShouldApplyCorrectly()
         {
             var bakedBeans = new CatalogueItem("Baked Beans", 0.99m);
-            var offer = new SingleProductBuyKGetYFreeOffer(bakedBeans.Id, 2, 1);
+            var offer = new SingleProductBuyKGetYFreeOffer(bakedBeans.Name, 2, 1);
             var basket = new List<BasketItem> { new BasketItem(bakedBeans, 9) };
             var offers = new List<IOffer> { offer };
             var pricer = new BasketPricer();
@@ -161,7 +161,7 @@ namespace ShoppingBasketPricing.Test
         public void BuyTwoGetOneFree_WithRemainder_ShouldApplyCorrectly()
         {
             var bakedBeans = new CatalogueItem("Baked Beans", 0.99m);
-            var offer = new SingleProductBuyKGetYFreeOffer(bakedBeans.Id, 2, 1);
+            var offer = new SingleProductBuyKGetYFreeOffer(bakedBeans.Name, 2, 1);
             var basket = new List<BasketItem> { new BasketItem(bakedBeans, 4) };
             var offers = new List<IOffer> { offer };
             var pricer = new BasketPricer();
@@ -189,8 +189,8 @@ namespace ShoppingBasketPricing.Test
         {
             var bakedBeans = new CatalogueItem("Baked Beans", 0.99m);
             var sardines = new CatalogueItem("Sardines", 1.89m);
-            var offer1 = new SingleProductBuyKGetYFreeOffer(bakedBeans.Id, 2, 1);
-            var offer2 = new PercentageDiscountOffer(new List<Guid> { sardines.Id }, 25m);
+            var offer1 = new SingleProductBuyKGetYFreeOffer(bakedBeans.Name, 2, 1);
+            var offer2 = new PercentageDiscountOffer(new List<string> { sardines.Name }, 25m);
             var basket = new List<BasketItem>
             {
                 new BasketItem(bakedBeans, 3),
@@ -209,7 +209,7 @@ namespace ShoppingBasketPricing.Test
         {
             // Arrange
             var bakedBeans = new CatalogueItem("Baked Beans", 0.99m);
-            var offer = new SingleProductBuyKGetYFreeOffer(bakedBeans.Id, 2, 1);
+            var offer = new SingleProductBuyKGetYFreeOffer(bakedBeans.Name, 2, 1);
             var basket = new List<BasketItem>
             {
                 // Intentionally exclude bakedBeans, include a different product
@@ -231,7 +231,7 @@ namespace ShoppingBasketPricing.Test
         {
             // Arrange & Act
             var exception = Assert.Throws<ArgumentException>(() =>
-                new PercentageDiscountOffer(new List<Guid> { Guid.NewGuid() }, -5m));
+                new PercentageDiscountOffer(new List<string> { "Example Product" }, -5m));
 
             // Assert
             Assert.Equal("percentage", exception.ParamName);
@@ -243,7 +243,7 @@ namespace ShoppingBasketPricing.Test
         {
             // Arrange & Act
             var exception = Assert.Throws<ArgumentException>(() =>
-                new PercentageDiscountOffer(new List<Guid> { Guid.NewGuid() }, 150m));
+                new PercentageDiscountOffer(new List<string> { "Example Product" }, 150m));
 
             // Assert
             Assert.Equal("percentage", exception.ParamName);
@@ -255,7 +255,7 @@ namespace ShoppingBasketPricing.Test
         {
             // Arrange
             var product = new CatalogueItem("Test Product", 1.00m);
-            var offer = new PercentageDiscountOffer(new List<Guid> { Guid.NewGuid() }, 10m); // Different GUID
+            var offer = new PercentageDiscountOffer(new List<string> { "Example Product" }, 10m); // Different GUID
             var basket = new List<BasketItem> { new BasketItem(product, 2) };
             var pricer = new BasketPricer();
 

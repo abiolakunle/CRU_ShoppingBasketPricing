@@ -4,12 +4,12 @@ namespace ShoppingBasketPricing.Offers
 {
     public class PercentageDiscountOffer : IOffer
     {
-        private readonly List<Guid> _productIds;
+        private readonly List<string> _productNames;
         private readonly decimal _percentage;
 
-        public PercentageDiscountOffer(List<Guid> productIds, decimal percentage)
+        public PercentageDiscountOffer(List<string> productNames, decimal percentage)
         {
-            _productIds = productIds ?? throw new ArgumentNullException(nameof(productIds));
+            _productNames = productNames ?? throw new ArgumentNullException(nameof(productNames));
             if (percentage < 0 || percentage > 100) throw new ArgumentException("Percentage must be between 0 and 100.", nameof(percentage));
             _percentage = percentage;
         }
@@ -19,7 +19,7 @@ namespace ShoppingBasketPricing.Offers
             decimal discount = 0;
             foreach (var item in basket)
             {
-                if (_productIds.Contains(item.Product.Id))
+                if (_productNames.Contains(item.Product.Name))
                 {
                     discount += (_percentage / 100) * item.Product.Price * item.Quantity;
                 }

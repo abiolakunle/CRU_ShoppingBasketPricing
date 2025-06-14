@@ -12,9 +12,9 @@ var shampooLarge = new CatalogueItem("Shampoo (Large)", 3.50m);
 // Define offers
 var offers = new List<IOffer>
         {
-            new SingleProductBuyKGetYFreeOffer(bakedBeans.Id, 2, 1), // Buy 2 get 1 free on Baked Beans
-            new PercentageDiscountOffer(new List<Guid> { sardines.Id }, 25), // 25% off Sardines
-            new GroupBuyKGetCheapestFreeOffer(new List<Guid> { shampooSmall.Id, shampooMedium.Id, shampooLarge.Id }, 2) // Buy 2 get cheapest free on Shampoos
+            new SingleProductBuyKGetYFreeOffer(bakedBeans.Name, 2, 1), // Buy 2 get 1 free on Baked Beans
+            new PercentageDiscountOffer(new List<string> { sardines.Name }, 25), // 25% off Sardines
+            new GroupBuyKGetCheapestFreeOffer(new List<string> { shampooSmall.Name, shampooMedium.Name, shampooLarge.Name }, 2) // Buy 2 get cheapest free on Shampoos
         };
 
 var pricer = new BasketPricer();
@@ -75,9 +75,9 @@ Console.WriteLine($"Discount: £{result5.discount:F2}");
 Console.WriteLine($"Total: £{result5.total:F2}");
 
 // Scenario 6: Basket with Sardines x1 and multiple 50% discounts
-var sardinesDiscount50_1 = new PercentageDiscountOffer(new List<Guid> { sardines.Id }, 50);
-var sardinesDiscount50_2 = new PercentageDiscountOffer(new List<Guid> { sardines.Id }, 50);
-var sardinesDiscount50_3 = new PercentageDiscountOffer(new List<Guid> { sardines.Id }, 50);
+var sardinesDiscount50_1 = new PercentageDiscountOffer(new List<string> { sardines.Name }, 50);
+var sardinesDiscount50_2 = new PercentageDiscountOffer(new List<string> { sardines.Name }, 50);
+var sardinesDiscount50_3 = new PercentageDiscountOffer(new List<string> { sardines.Name }, 50);
 var offersForScenario6 = new List<IOffer> { sardinesDiscount50_1, sardinesDiscount50_2, sardinesDiscount50_3 };
 var basket6 = new List<BasketItem>
         {
