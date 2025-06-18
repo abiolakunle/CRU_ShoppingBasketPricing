@@ -114,7 +114,7 @@ namespace ShoppingBasketPricing.Test
         }
 
         [Fact]
-        public void MultipleOffersOnSameProduct_ShouldApplyAdditiveDiscounts()
+        public void MultipleOffersOnSameProduct_ShouldApplySequentialDiscounts()
         {
             var sardines = new CatalogueItem("Sardines", 1.89m);
             var offer1 = new PercentageDiscountOffer(new List<string> { sardines.Name }, 25m);
@@ -124,8 +124,8 @@ namespace ShoppingBasketPricing.Test
             var pricer = new BasketPricer();
             var result = pricer.CalculatePrices(basket, offers);
             Assert.Equal(1.89m, result.subTotal);
-            Assert.Equal(0.94m, result.discount);
-            Assert.Equal(0.95m, result.total);
+            Assert.Equal(0.83m, result.discount); // Sequential: 1.89 - (1.89 * 0.75 * 0.75)
+            Assert.Equal(1.06m, result.total);
         }
 
         [Fact]
@@ -139,7 +139,7 @@ namespace ShoppingBasketPricing.Test
             var pricer = new BasketPricer();
             var result = pricer.CalculatePrices(basket, offers);
             Assert.Equal(1.89m, result.subTotal);
-            Assert.Equal(3.78m, result.discount);
+            Assert.Equal(1.89m, result.discount); // Only the full price can be discounted
             Assert.Equal(0m, result.total);
         }
 

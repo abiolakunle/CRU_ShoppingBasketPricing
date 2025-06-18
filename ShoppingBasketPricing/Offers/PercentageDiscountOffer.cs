@@ -14,6 +14,13 @@ namespace ShoppingBasketPricing.Offers
             _percentage = percentage;
         }
 
+        public decimal Percentage => _percentage;
+
+        public bool AppliesTo(string productName)
+        {
+            return _productNames.Contains(productName);
+        }
+
         public decimal CalculateDiscount(List<BasketItem> basket)
         {
             decimal discount = 0;
