@@ -3,8 +3,12 @@ using ShoppingBasketPricing.Offers;
 
 namespace ShoppingBasketPricing
 {
+    /// <summary>
+    /// Provides functionality to calculate basket prices, including applying offers and discounts.
+    /// </summary>
     public class BasketPricer : IBasketPricer
     {
+        /// <inheritdoc/>
         public (decimal subTotal, decimal discount, decimal total) CalculatePrices(List<BasketItem> basket, List<IOffer> offers)
         {
             decimal subTotal = Math.Round(basket.Sum(item => item.Product.Price * item.Quantity), 2, MidpointRounding.ToEven);

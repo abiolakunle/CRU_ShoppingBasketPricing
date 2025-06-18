@@ -2,12 +2,24 @@
 
 namespace ShoppingBasketPricing.Offers
 {
+    /// <summary>
+    /// Represents an offer where buying a certain quantity of a product gives additional units for free.
+    /// </summary>
     public class SingleProductBuyKGetYFreeOffer : IOffer
     {
         private readonly string _productName;
         private readonly int _buyQuantity;
         private readonly int _freeQuantity;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SingleProductBuyKGetYFreeOffer"/> class.
+        /// </summary>
+        /// <param name="productName">The name of the product the offer applies to.</param>
+        /// <param name="buyQuantity">The quantity to buy to qualify for the offer.</param>
+        /// <param name="freeQuantity">The quantity given for free.</param>
+        /// <exception cref="ArgumentException">
+        /// Thrown if <paramref name="buyQuantity"/> or <paramref name="freeQuantity"/> is less than 1.
+        /// </exception>
         public SingleProductBuyKGetYFreeOffer(string productName, int buyQuantity, int freeQuantity)
         {
             if (buyQuantity < 1) throw new ArgumentException("Buy quantity must be at least 1.");
@@ -17,6 +29,7 @@ namespace ShoppingBasketPricing.Offers
             _freeQuantity = freeQuantity;
         }
 
+        /// <inheritdoc/>
         public decimal CalculateDiscount(List<BasketItem> basket)
         {
             var item = basket.FirstOrDefault(i => i.Product.Name == _productName);
